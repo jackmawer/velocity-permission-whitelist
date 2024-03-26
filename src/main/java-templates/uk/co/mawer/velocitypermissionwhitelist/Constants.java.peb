@@ -1,0 +1,7 @@
+package uk.co.mawer.velocitypermissionwhitelist;
+
+public final class Constants {
+	public static final String VERSION = "{{ version }}";
+
+	private Constants() {}
+}
