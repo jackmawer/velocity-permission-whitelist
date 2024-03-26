@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.PluginContainer;
 import com.velocitypowered.api.plugin.PluginDescription;
-//import com.velocitypowered.api.plugin.annotation.DataDirectory;
+import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.plugin.Dependency;
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.proxy.ProxyServer;
@@ -17,7 +17,7 @@ import com.velocitypowered.api.event.ResultedEvent;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.slf4j.Logger;
 
-import java.io.File;
+import java.nio.file.Path;
 import java.io.IOException;
 
 @Plugin(
@@ -34,14 +34,14 @@ import java.io.IOException;
 public class VelocityPermissionWhitelist {
 	private final ProxyServer server;
 	private final Logger logger;
-	//private final DataDirectory dataDirectory;
+	private final Path dataDirectory;
     private final MiniMessage mm;
 	
 	@Inject
-	public VelocityPermissionWhitelist(ProxyServer server, Logger logger/*, DataDirectory dataDirectory*/) {
+	public VelocityPermissionWhitelist(ProxyServer server, Logger logger, @DataDirectory Path dataDirectory) {
         this.server = server;
         this.logger = logger;
-		//this.dataDirectory = dataDirectory;
+		this.dataDirectory = dataDirectory;
         this.mm = MiniMessage.miniMessage();
 	}
 
@@ -62,8 +62,7 @@ public class VelocityPermissionWhitelist {
 
     @Subscribe
     public void onEnable(ProxyInitializeEvent event) {
-        //logger.info("Enabling VelocityPermissionWhitelist v" + getDescription().getVersion().orElse("Unknown"));
-		logger.info("Enabling VelocityPermissionWhitelist");
+        logger.info("Enabling VelocityPermissionWhitelist v" + getDescription().getVersion().orElse("Unknown"));
 	}
 
     @Subscribe
@@ -77,12 +76,10 @@ public class VelocityPermissionWhitelist {
         //TODO: Disable tasks here
     }
 
-	//TODO: broken
-	/*
     PluginDescription getDescription() {
-        return server.getPluginManager().getPlugin("gchat-velocity").map(PluginContainer::getDescription).orElse(null);
+		//TODO: broken?
+        return server.getPluginManager().getPlugin("velocitypermissionwhitelist").map(PluginContainer::getDescription).orElse(null);
     }
-	*/
 
     ProxyServer getProxy() {
         return server;
