@@ -46,7 +46,7 @@ public class VelocityPermissionWhitelist {
 
 	@Subscribe
 	public void onProxyInitialization(ProxyInitializeEvent event) {
-		logger.info("Enabling VelocityPermissionWhitelist v" + getDescription().getVersion().orElse("Unknown"));
+		logger.info("Enabling VelocityPermissionWhitelist v{}", getDescription().getVersion().orElse("Unknown"));
 	}
 
 	//TODO: Move to another class?
