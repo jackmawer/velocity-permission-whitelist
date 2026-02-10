@@ -4,6 +4,7 @@ plugins {
 }
 
 repositories {
+    mavenCentral()
     maven {
         name = "papermc"
         url = uri("https://repo.papermc.io/repository/maven-public/")
@@ -11,14 +12,14 @@ repositories {
 }
 
 dependencies {
-    compileOnly("com.velocitypowered:velocity-api:3.3.0-SNAPSHOT")
-    annotationProcessor("com.velocitypowered:velocity-api:3.3.0-SNAPSHOT")
+    compileOnly(libs.velocity)
+    annotationProcessor(libs.velocity)
 }
 
 tasks {
     compileJava {
         options.encoding = Charsets.UTF_8.name()
-        options.release.set(17)
+        options.release.set(21)
     }
 }
 
@@ -32,4 +33,4 @@ sourceSets {
     }
 }
 
-java.toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+java.toolchain.languageVersion.set(JavaLanguageVersion.of(21))

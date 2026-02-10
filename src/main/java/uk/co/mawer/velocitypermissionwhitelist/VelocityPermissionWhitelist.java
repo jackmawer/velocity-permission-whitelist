@@ -18,7 +18,6 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.slf4j.Logger;
 
 import java.nio.file.Path;
-import java.io.IOException;
 
 @Plugin(
 	id = "velocitypermissionwhitelist",
@@ -47,7 +46,7 @@ public class VelocityPermissionWhitelist {
 
 	@Subscribe
 	public void onProxyInitialization(ProxyInitializeEvent event) {
-		// Do some operation demanding access to the Velocity API here.
+		logger.info("Enabling VelocityPermissionWhitelist v{}", getDescription().getVersion().orElse("Unknown"));
 	}
 
 	//TODO: Move to another class?
@@ -55,20 +54,14 @@ public class VelocityPermissionWhitelist {
 	@Subscribe
 	public void onLogin(LoginEvent loginEvent) {
 		Player player = loginEvent.getPlayer();
-		if (!player.hasPermission("velocitypermissionwhitelist.join"))
+		if (!player.hasPermission("velocitypermissionwhitelist.join")) {
 			loginEvent.setResult(ResultedEvent.ComponentResult.denied(mm.deserialize("<color:#85B9DA><gradient:blue:aqua><bold>FountainCraft</bold></gradient></color:#85B9DA>\nYou need to be verified before you can play on this server.\nPlease contact the person who invited you and ask them to vouch for you.")));
-	}
-
-
-    @Subscribe
-    public void onEnable(ProxyInitializeEvent event) {
-        logger.info("Enabling VelocityPermissionWhitelist v" + getDescription().getVersion().orElse("Unknown"));
+		}
 	}
 
     @Subscribe
-    public boolean onReload(ProxyReloadEvent event) {
+    public void onReload(ProxyReloadEvent event) {
 		//TODO: Reload config in future
-        return true;
     }
 
     @Subscribe
